@@ -1,5 +1,12 @@
 pragma solidity ^0.4.24;
 
+
+interface ERC165 {
+    function supportsInterface(bytes4 _interfaceId)
+    external
+    view
+    returns (bool);
+}
 library SafeMath {
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
         if (a == 0) {
@@ -95,6 +102,7 @@ contract ERC1155 is IERC1155, ERC165
         if (_to.isContract()) {
             require(IERC1155TokenReceiver(_to).onERC1155BatchReceived(msg.sender, _from, _ids, _values, _data) == ERC1155_RECEIVED);
         }
+    }
     function balanceOf(address _owner, uint256 _id) external view returns (uint256) {
         return balances[_id][_owner];
     }
